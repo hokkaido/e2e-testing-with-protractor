@@ -62,18 +62,18 @@ The `describe` call is from Jasmine, and we use it to describe the page we want 
 It is important to note that Protractor is entirely asynchronous, so all API methods return promises. Under the hood, Protractor uses Selenium's control flow (a queue of pending promises) to allow us to write tests in a pseudo-synchronous way. Protractor is smart enough to make it all work.
  
 ##Elements and Locators
-As you can imagine, a large part of writing a test against a web site deals with finding and locating DOM elements on a page and executing actions such as clicking on them. As explained above, Protractor offers multiple globally available constructs that help us here: `element`, and `by`.
+As you can imagine, a large part of writing a test against a web site deals with finding and locating DOM elements on a page and executing actions such as clicking on them. As explained above, Protractor offers globally available constructs that help us here: `element`, and `by`.
 
 A call to `element` requires a `Locator` and returns an `ElementFinder` - it is used to find the first (or only) element that is matched by the Locator. Similarly, there is also `element.all` if you want to find more than one element. 
 
-A `Locator` can be created by using the functions available with `by`. So there are Locator methods like `by.css`, `by.id` or `by.binding` that pretty much do what you'd expect. It is even possible to create your own Locators and attaching them to `by` during the start up of Protractor.
+A `Locator` can be created by using the functions available with `by`. There are methods that return `Locators` like `by.css`, `by.id` or `by.binding` that pretty much do what you'd expect. It is even possible to create your own Locators and attaching them to `by` during the start up of Protractor.
 
 ```
 element(by.css('input.username'));
 element.all(by.css('a.btn'));
 ```
 
-An `ElementFinder` exposes multiple actions, we've already seen `sendKeys` and `click` in the example above. We can use these actions to interact with the element, or to find out more about the element, for instance whether it is currently being displayed or not, or what its text value is. Additionally, 
+An `ElementFinder` exposes multiple actions, we've already seen `sendKeys` and `click` in the example above. We can use these actions to interact with the element, or to find out more about the element, for instance whether it is currently being displayed or not, or what its text value is. 
 
 ```
 element(by.css('a.home-page')).getAttribute('target');
@@ -96,9 +96,9 @@ element.all(by.css('div.article')).get(2).element(by.css('a'));
 
  
 ##Organizing your code: Page objects
-If we only relied on `element` calls to structure our tests, our life would get progressively worse as the application grows. We'd have to duplicate a lot of code for components that are used across different pages. One change to an element's class name could force us to rewrite many of our tests.
+If we only relied on `element` calls to structure our tests, our life would get progressively worse as the application grows. We'd have to duplicate a lot of code for components that are used across different pages, or pages that are used across different tests. One change to an element's class name could force us to rewrite many of our tests.
 
-We use a design pattern called *page object* to overcome this problem. It is described in more detail by [Martin Fowler](http://martinfowler.com/bliki/PageObject.html). The gist of it is very simple:
+We use a design pattern called *page object* to overcome this problem. It is described in more detail by [Martin Fowler](http://martinfowler.com/bliki/PageObject.html). The gist of it is very simple, we try to encapsulate and wrap most of our Protractor calls :
 
 
 ```javascript
@@ -129,7 +129,7 @@ var LoginPage = function() {
 module.exports = LoginPage;
 
 ```
-We can now use the LoginPage page object in a test like. You'll proably notice that the test is now much more readable, which is a nice side effect of using page objects:
+We can now use the LoginPage page object in our tests. You'll proably notice that the test is now much more readable, which is a nice side effect of using page objects:
  
 ```javascript
 var LoginPage = require('login-page');
@@ -138,9 +138,9 @@ describe('login page', function() {
   it('should display an error message if the password field is empty', function() {
     var page = new LoginPage();
     page.visit();
-    page.userName = 'gandalf';
+    page.setUserName('gandalf');
     page.login();
-    expect(page.passwordRequiredError.isDisplayed).toBe(true);
+    expect(page.passwordRequiredError.isDisplayed().toBe(true);
   });
 });  
 ```
@@ -157,7 +157,7 @@ var HomePage = function() {
 module.exports = HomePage;
 ```
 
-We often unify common methods in a base `Page` class that other page objects can inherit from:
+Another neat trick: We often unify common methods in a base `Page` class that other page objects can inherit from:
 
 ```javascript
 var Page = function() {
@@ -170,3 +170,5 @@ var Page = function() {
 };  
 module.exports = Page;
 ```
+##Conclusion
+Protractor allows us to test our AngularJS applications in a consistent and automated way. We're better able to make informed statements about the state of our AngularJS applications and have greater confidence in their overall soundness.
