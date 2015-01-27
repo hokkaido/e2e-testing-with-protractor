@@ -2,25 +2,26 @@
 
 We use AngularJS, and as developers concerned with the quality of our work, we employ a multitude of tools and patterns to ensure that everything works as expected. In short, we test our software.
 
-The goal of this post is to give you a short overview about some of our experience with testing AngularJS applications, and I'll focus exclusively on end-to-end testing.
+The goal of this post is to give you a short overview about some of our experiences with testing AngularJS applications, and I'll focus exclusively on end-to-end testing.
 
-##End-to-end testing, what it is, and what it is not.
+##End-to-end testing
 
-There is actually a pletheora of vocabulary associated with testing: unit tests, integration tests, system tests, acceptance tests and so on - unfortunately their meanings aren't always well defined or understood. Google internally solved this problem by using three terms to categorize their tests: *small*, *medium* and *large*.
+Modern web applications have to integrate a variety of external services, database systems and APIs. On top of that, they have to accomodate an ever-shifting landscape of devices and browsers. 
 
-A typical modern web application has to integrate a variety of external services, database systems and APIs. There usually comes a point during the development of most large web applications where you want to test the functionality of the system as a whole. 
+This is an area that is notoriously difficult or even outright impossible to test with traditional methods such as unit tests and simple mocks. A database can fail, an external service can return an invalid result and a new browser version might have introduced a simple bug that we didn't know about when we initially wrote our code.
 
-This is an area that is notoriously difficult to test with traditional methods such as unit tests and simple
-mocks. A database can fail, an external service can return an invalid result and a new browser version might have introduced a simple bug that we didn't know about when we initially wrote our code.
+This is where end-to-end testing comes into play. We want to test our application as a whole and make sure that it works as expected. We want to test our entire application, starting from the user interface down to individual subsystems, backend and external services.
 
-On top of that, one of the most important areas of software testing deals with the user-facing part of an application. After all, we build software not for ourselves, but for our clients and their customers. 
+It's important to note that end-to-end testing is no panacea, we employ it alongside other testing methods, but the high level and broad scope of end-to-end testing can help tremendously when developing complex web applications.
 
 ##Enter Protractor
-Google has released a testing framework for AngularJS applications called  [Protractor](http://angular.github.io/protractor/) that integrates existing technologies such as Selenium, Node.js and Jasmine and makes writing tests a breeze.
+Google has released an end-to-end testing framework for AngularJS applications called  [Protractor](http://angular.github.io/protractor/) that integrates existing technologies such as Selenium, Node.js and Jasmine and makes writing tests a breeze.
 
-With Protractor we can write tests that run inside an actual browser, against an existing website. We can test whether our website works as intended and we can catch and guard against unexpected errors.
+With Protractor we can write tests that run inside an actual browser, against an existing website.
 
-If you know Selenium and Jasmine, getting started with Protractor should be pretty straight forward.
+If you already know Selenium and Jasmine, getting started with Protractor should be pretty straight forward.
+
+##Installation
 
 ##Writing a simple test
 Protractor expects your tests to be written in so-called spec files. Spec is simply another word for test. These spec files are written using the syntax of your test framework, and the Protractor API. Out of the hood, Protractor uses [Jasmine](http://jasmine.github.io/1.3/introduction.html), but it also has tentative support for [Mocha](http://mochajs.org) and [Cucumber](http://cukes.info).
