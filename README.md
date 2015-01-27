@@ -102,7 +102,9 @@ You can easily chain element calls.
 ##Element Finders are
  
 ##Organizing your code: Page objects
-If we only relied on `element` calls to structure our tests, our life gets progressively worse as the application grows. One change to an element's class name could force us to rewrite many of our tests.
+If we only relied on `element` calls to structure our tests, our life would get progressively worse as the application grows. We'd have to duplicate a lot of code for components that are used across different pages. One change to an element's class name could force us to rewrite many of our tests.
+
+We use a design pattern called *page object* to overcome this problem. It is described in more detail by [Martin Fowler](http://martinfowler.com/bliki/PageObject.html). The gist of it is very simple.
 
 
 ```javascript
@@ -133,7 +135,7 @@ var LoginPage = function() {
 module.exports = LoginPage;
 
 ```
-And we can now use the LoginPage in a test like this:
+We can now use the LoginPage page object in a test like this:
  
 ```javascript
 var LoginPage = require('login-page');
@@ -149,7 +151,7 @@ describe('login page', function() {
 });  
 ```
  
-We can now extend this principle to shared page components, such as headers, footers and directives. Once you've written
+We extend this principle to shared page components, such as headers, footers and AngularJS directives. 
 
 ```javascript
 var HomePage = function() {
