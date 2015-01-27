@@ -1,8 +1,8 @@
 #AngularJS - End-to-end testing with Protractor
 
-We use AngularJS, and as developers concerned with the quality of our work, we employ a multitude of tools and patterns to ensure that everything works as expected. In short, we test our software.
+We use [AngularJS](https://angularjs.org) here at Liip, and as developers concerned with the quality of our work, we employ a multitude of tools and patterns to ensure that everything works as expected. In short, we test our software.
 
-The goal of this post is to give you a short overview about some of our experiences with testing AngularJS applications, and I'll focus exclusively on end-to-end testing.
+The goal of this post is to give you a short overview about some of our experiences with testing AngularJS applications.
 
 ##End-to-end testing
 
@@ -10,12 +10,12 @@ Modern web applications have to integrate a variety of external services, databa
 
 This is an area that is notoriously difficult or even outright impossible to test with traditional methods such as unit tests and simple mocks. A database can fail, an external service can return an invalid result and a new browser version might have introduced a simple bug that we didn't know about when we initially wrote our code.
 
-This is where end-to-end testing comes into play. We want to test our application as a whole and make sure that it works as expected. We want to test the entire application, starting from the user interface down to the individual subsystems, such as the backend or external services.
+This is where end-to-end testing comes into play. We want to test our application as a whole and make sure that it works as expected. We want to test the entire application, starting from the user interface down to the individual subsystems, such as the backend storage or external services.
 
 It's important to note that end-to-end testing is no panacea, we employ it alongside other testing methods, but the high level and broad scope of end-to-end testing can help tremendously when developing a complex web application.
 
 ##Enter Protractor
-Google has released an end-to-end testing framework for AngularJS applications called  [Protractor](http://angular.github.io/protractor/) that integrates existing technologies such as Selenium, Node.js and Jasmine and makes writing tests a breeze.
+Google has released an end-to-end testing framework for AngularJS applications called  [Protractor](http://angular.github.io/protractor/) that integrates existing technologies such as Selenium, Node.js and [Jasmine](http://jasmine.github.io/1.3/introduction.html) and makes writing tests a breeze.
 
 With Protractor we can write automated tests that run inside an actual browser, against an existing website. Thus, we can easily test whether a page works as expected.
 
@@ -57,14 +57,16 @@ The `describe` call is from Jasmine, and we use it to describe the page we want 
 
 `element` and `by` are also globals created for us by Protractor. We can use them to find and interact with elements on the page.
 
-`expect` is again from Jasmine, we test whether our expected error message is displayed.
+`expect` is again from Jasmine (and extended by Protractor), we test whether our expected error message is displayed.
  
-##ElementFinder and Locators
-As you can imagine, a large part of writing a test against a web site deals with finding and locating elements on a page and executing actions such as clicking on them. Protractor helps us here with two constructs: ElementFinders and Locators.
+##ElementFinders, Locators and ControlFlow
+As you can imagine, a large part of writing a test against a web site deals with finding and locating elements on a page and executing actions such as clicking on them. As seen above, Protractor offers two globally available constructs that help us here: `element` and `by`.
+
+A call to `element` requires a `Locator` and returns an `ElementFinder` or `ElementArrayFinder`
 
 Some examples:
 
-If you want to find the first (or only) element by using a css selector:
+If you want to find the first (or only) element by using a css selector, you use the `by.css` Locator:
 
 `element(by.css('input.username'));`
 
