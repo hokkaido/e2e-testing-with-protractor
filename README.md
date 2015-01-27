@@ -10,21 +10,22 @@ Modern web applications have to integrate a variety of external services, databa
 
 This is an area that is notoriously difficult or even outright impossible to test with traditional methods such as unit tests and simple mocks. A database can fail, an external service can return an invalid result and a new browser version might have introduced a simple bug that we didn't know about when we initially wrote our code.
 
-This is where end-to-end testing comes into play. We want to test our application as a whole and make sure that it works as expected. We want to test our entire application, starting from the user interface down to individual subsystems, backend and external services.
+This is where end-to-end testing comes into play. We want to test our application as a whole and make sure that it works as expected. We want to test the entire application, starting from the user interface down to the individual subsystems, such as the backend or external services.
 
-It's important to note that end-to-end testing is no panacea, we employ it alongside other testing methods, but the high level and broad scope of end-to-end testing can help tremendously when developing complex web applications.
+It's important to note that end-to-end testing is no panacea, we employ it alongside other testing methods, but the high level and broad scope of end-to-end testing can help tremendously when developing a complex web application.
 
 ##Enter Protractor
 Google has released an end-to-end testing framework for AngularJS applications called  [Protractor](http://angular.github.io/protractor/) that integrates existing technologies such as Selenium, Node.js and Jasmine and makes writing tests a breeze.
 
-With Protractor we can write tests that run inside an actual browser, against an existing website.
+With Protractor we can write automated tests that run inside an actual browser, against an existing website. Thus, we can easily test whether a page works as expected.
 
 If you already know Selenium and Jasmine, getting started with Protractor should be pretty straight forward.
 
 ##Installation
+Protractor requires Node.js, Selenium and a testing framework such as Jasmine to be installed on your computer. The official docs provide a good starting point. You can find more about the installation process [here](http://angular.github.io/protractor/#/).
 
 ##Writing a simple test
-Protractor expects your tests to be written in so-called spec files. Spec is simply another word for test. These spec files are written using the syntax of your test framework, and the Protractor API. Out of the hood, Protractor uses [Jasmine](http://jasmine.github.io/1.3/introduction.html), but it also has tentative support for [Mocha](http://mochajs.org) and [Cucumber](http://cukes.info).
+Protractor expects your tests to be written in so-called *spec files*. Spec is simply another word for test. These spec files are written using the syntax of your test framework, and the [Protractor API](http://angular.github.io/protractor/#/api). Out of the hood, Protractor uses [Jasmine](http://jasmine.github.io/1.3/introduction.html), but it also has tentative support for [Mocha](http://mochajs.org) and [Cucumber](http://cukes.info).
 
 Let's assume we want to test whether a login page displays an error message if we do not fill in the password field.
 In protractor, we'd create a spec file (`login_spec.js`) for it that might look like this:
