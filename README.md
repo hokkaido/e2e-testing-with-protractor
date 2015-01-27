@@ -140,7 +140,7 @@ describe('login page', function() {
     page.visit();
     page.setUserName('gandalf');
     page.login();
-    expect(page.passwordRequiredError.isDisplayed().toBe(true);
+    expect(page.passwordRequiredError.isDisplayed()).toBe(true);
   });
 });  
 ```
