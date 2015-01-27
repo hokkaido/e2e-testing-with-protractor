@@ -57,26 +57,33 @@ actions such as clicking on them. Protractor helps us here with two constructs: 
 Some examples:
 
 If you want to find the first (or only) element by using a css selector:
+
 `element(by.css('input.username'));`
 
 If you want to find all elements on a by using a css selector
+
 `element.all(by.css('a.btn'));`
 
 If you want to find an element on the page by using its id
+
 `element(by.id('company-name'));`
 
 If you want to find all elements that have an ng-bind="currency" attribute
+
 `element.all(by.binding('currency'));`
 
 If you want to find an element that uses ng-model="selectedAlbum":
+
 `element(by.model('selectedAlbum'));`
 
 Once you have an ElementFinder, you can trigger actions:
 
 If you want to get an element's text value:
+
 `element.all(by.css('a.home-page')).getText();`
 
 If you want to get an element's attribute:
+
 `element(by.css('a.home-page')).getAttribute('target');`
 
 ###Chaining Elements
@@ -131,8 +138,8 @@ describe('login page', function() {
     var page = new LoginPage();
     page.visit();
     page.userName = 'gandalf';
-    page.userPassword = 'thoushaltnotpass2014';
     page.login();
+    expect(page.passwordRequiredError.isDisplayed).toBe(true);
   });
 });  
 ```
@@ -142,7 +149,7 @@ We can now extend this principle to shared page components, such as headers, foo
 ```javascript
 var HomePage = function() {
   this.header = new Header();
-  this.sideBar = new SideBar();ß
+  this.sideBar = new SideBar();
   this.footer = new Footer();
   ...
 };
