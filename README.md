@@ -57,33 +57,33 @@ actions such as clicking on them. Protractor helps us here with two constructs: 
 Some examples:
 
 If you want to find the first (or only) element by using a css selector:
-```element(by.css('input.username'));```
+`element(by.css('input.username'));`
 
 If you want to find all elements on a by using a css selector
-```element.all(by.css('a.btn'));```
+`element.all(by.css('a.btn'));`
 
 If you want to find an element on the page by using its id
-```element(by.id('company-name'));```
+`element(by.id('company-name'));`
 
 If you want to find all elements that have an ng-bind="currency" attribute
-```element.all(by.binding('currency'));```
+`element.all(by.binding('currency'));`
 
 If you want to find an element that uses ng-model="selectedAlbum":
-```element(by.model('selectedAlbum'));```
+`element(by.model('selectedAlbum'));`
 
 Once you have an ElementFinder, you can trigger actions:
 
-If you want to get its text value:
-```element.all(by.css('a.home-page')).getValue();```
+If you want to get an element's text value:
+`element.all(by.css('a.home-page')).getText();`
 
 If you want to get an element's attribute:
-```element(by.css('a.home-page')).getAttribute('target');```
+`element(by.css('a.home-page')).getAttribute('target');`
 
 ###Chaining Elements
 
 You can easily chain element calls.
 
-element.all(by.css('li')).element(by.;
+`element.all(by.css('li')).element(by.;`
 
 ###ElementFinder = Promises
 
