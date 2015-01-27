@@ -16,13 +16,12 @@ After all, we build software not for ourselves, but for our clients and their cu
 
 Luckily enough, there are existing solutions that help us deal with these problems in an automated and consistent way.
 
-##Enter protractor
-Now, this is a blog post about AngularJS. We use AngularJS and we test our code. In the following paragraphs I'd like to describe how we test AngularJS applications at Liip.
+Now, this is a blog post about AngularJS. We use AngularJS and we test our code. In the following paragraphs I'd like to describe one of the ways how we test AngularJS applications at Liip.
 
+##Enter protractor
 Google has released a testing framework for AngularJS applications called Protractor that integrates existing technologies such as Selenium, Node.js and Jasmine and makes writing tests a breeze.
 
-With protractor we can write tests that run inside an actual browser, against an existing website. We can test whether
-our website works as intended and we can catch and guard against unexpected errors.
+With protractor we can write tests that run inside an actual browser, against an existing website. We can test whether our website works as intended and we can catch and guard against unexpected errors.
 
 If you know Selenium and Jasmine, getting started with Protractor should be pretty straight forward.
 
