@@ -1,23 +1,24 @@
 #AngularJS - End-to-end testing with Protractor
 
+We use AngularJS, and as developers concerned with the quality of our work, we employ a multitude of tools and patterns to ensure that everything works as expected. In short, we test our software.
 
-As developers concerned with the quality of our work, we have a multitude of tools and patterns at our disposal to ensure that everything works as expected. In short, we test our software.
+The goal of this post is to give you a short overview about some of our experience with testing AngularJS applications, and I'll focus exclusively on end-to-end testing.
 
-A typical web application has to integrate a variety of external services, database systems and APIs. There comes a point during the development of most large web applications where you want to test the functionality of the system as a whole. 
+##End-to-end testing, what it is, and what it is not.
+
+There is actually a pletheora of vocabulary associated with testing: unit tests, integration tests, system tests, acceptance tests and so on - unfortunately their meanings aren't always well defined or understood. Google internally solved this problem by using three terms to categorize their tests: *small*, *medium* and *large*.
+
+A typical modern web application has to integrate a variety of external services, database systems and APIs. There usually comes a point during the development of most large web applications where you want to test the functionality of the system as a whole. 
 
 This is an area that is notoriously difficult to test with traditional methods such as unit tests and simple
 mocks. A database can fail, an external service can return an invalid result and a new browser version might have introduced a simple bug that we didn't know about when we initially wrote our code.
 
 On top of that, one of the most important areas of software testing deals with the user-facing part of an application. After all, we build software not for ourselves, but for our clients and their customers. 
 
-Luckily enough, there are existing solutions that help us deal with these problems in an automated and consistent way.
-
-Now, this is a blog post about AngularJS. We use AngularJS and we test our code. In the following paragraphs I'd like to describe one of the ways how we test AngularJS applications at Liip.
-
 ##Enter Protractor
-Google has released a testing framework for AngularJS applications called [Protractor](http://angular.github.io/protractor/) that integrates existing technologies such as Selenium, Node.js and Jasmine and makes writing tests a breeze.
+Google has released a testing framework for AngularJS applications called  [Protractor](http://angular.github.io/protractor/) that integrates existing technologies such as Selenium, Node.js and Jasmine and makes writing tests a breeze.
 
-With protractor we can write tests that run inside an actual browser, against an existing website. We can test whether our website works as intended and we can catch and guard against unexpected errors.
+With Protractor we can write tests that run inside an actual browser, against an existing website. We can test whether our website works as intended and we can catch and guard against unexpected errors.
 
 If you know Selenium and Jasmine, getting started with Protractor should be pretty straight forward.
 
