@@ -96,7 +96,7 @@ You can easily chain element calls.
 ##Element Finders are
  
 ##Organizing your code: Page objects
-The basic principles that you follow
+If we only relied on `element` calls to structure our tests, our life gets progressively worse as the application grows. One change to an element's class name could force us to rewrite many of our tests.
 
 
 ```javascript
