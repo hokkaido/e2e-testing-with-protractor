@@ -12,10 +12,10 @@ This is an area that is notoriously difficult or even outright impossible to tes
 
 This is where end-to-end testing comes into play. We want to test our application as a whole and make sure that it works as expected. We want to test the entire application, starting from the user interface down to the individual subsystems, such as the backend storage or external services.
 
-It's important to note that end-to-end testing is no panacea, we employ it alongside other testing methods, but the high level and broad scope of end-to-end testing can help tremendously when developing a complex web application.
+It's important to note that end-to-end testing is no panacea, we employ it alongside other testing methods, but the high level and broad scope of end-to-end testing helps us tremendously when developing a complex web application.
 
 ##Enter Protractor
-Google has released an end-to-end testing framework for AngularJS applications called  [Protractor](http://angular.github.io/protractor/) that integrates existing technologies such as Selenium, Node.js and [Jasmine](http://jasmine.github.io/1.3/introduction.html) and makes writing tests a breeze. 
+Google has released an end-to-end testing framework for AngularJS applications called  [Protractor](http://angular.github.io/protractor/) that integrates existing technologies such as [Selenium](http://www.seleniumhq.org), [Node.js](http://nodejs.org) and [Jasmine](http://jasmine.github.io/1.3/introduction.html) and makes writing tests a breeze. 
 
 With Protractor we can write automated tests that run inside an actual browser, against an existing website. Thus, we can easily test whether a page works as expected. The added bonus of using Protractor is that it understands AngularJS and is optimized for it.
 
@@ -73,20 +73,20 @@ element(by.css('input.username'));
 element.all(by.css('a.btn'));
 ```
 
-An `ElementFinder` exposes multiple actions, we've already seen `sendKeys` and `click` in the example above. We can use these actions to interact with the element, or to find out more about the element, for instance whether it is currently being displayed or not, or what its text value is. 
+An `ElementFinder` exposes multiple actions, we've already seen `sendKeys` and `click` above. We can use these actions to interact with an element, or to find out more about an element, for instance whether it is currently being displayed or not, or what its text value is. 
 
 ```
 element(by.css('a.home-page')).getAttribute('target');
 ```
 
-It is also possible to chain `element` calls, it is somewhat similar to chained jQuery in this regard. 
+It is also possible to chain `element` calls, it is somewhat similar to jQuery in this regard. 
 
 ```
 element(by.css('div.article')).element(by.tagName('h1'));
 element(by.css('ul#main-menu')).all(by.tagName('li'));
 ```
 
-Last but not least, element.all exposes some additional functionality, as in getting the first child element, 
+Last but not least, `element.all` exposes some additional functionality, as in getting the first child element, 
 or getting a child element by index, and these calls can also be chained.
 
 ```
@@ -98,7 +98,7 @@ element.all(by.css('div.article')).get(2).element(by.css('a'));
 ##Organizing your code: Page objects
 If we only relied on `element` calls to structure our tests, our life would get progressively worse as the application grows. We'd have to duplicate a lot of code for components that are used across different pages, or pages that are used across different tests. One change to an element's class name could force us to rewrite many of our tests.
 
-We use a design pattern called *page object* to overcome this problem. It is described in more detail by [Martin Fowler](http://martinfowler.com/bliki/PageObject.html). The gist of it is very simple, we try to encapsulate and wrap most of our Protractor calls :
+We use a design pattern called *page object* to overcome this problem. It is described in more detail by [Martin Fowler](http://martinfowler.com/bliki/PageObject.html). The gist of it is very simple, we try to encapsulate and wrap most of our Protractor calls in them:
 
 
 ```javascript
@@ -171,4 +171,4 @@ var Page = function() {
 module.exports = Page;
 ```
 ##Conclusion
-Protractor allows us to test our AngularJS applications in a consistent and automated way. We're better able to make informed statements about the state of our AngularJS applications and have greater confidence in their overall soundness.
+Protractor allows us to test our AngularJS applications in a consistent and automated way. We're better able to make informed statements about the overall state and soundness of our AngularJS applications because of it. 
