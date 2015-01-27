@@ -64,24 +64,41 @@ It is important to note that Protractor is entirely asynchronous, so all API met
 ##Elements and Locators
 As you can imagine, a large part of writing a test against a web site deals with finding and locating DOM elements on a page and executing actions such as clicking on them. As explained above, Protractor offers multiple globally available constructs that help us here: `element`, and `by`.
 
-A call to `element` requires a `Locator` and returns an `ElementFinder` - it is used to find the first (or only) element that is matched by the Locator. Similarly, there is also `element.all` if you want to find more than one element.
+A call to `element` requires a `Locator` and returns an `ElementFinder` - it is used to find the first (or only) element that is matched by the Locator. Similarly, there is also `element.all` if you want to find more than one element. 
 
-A `Locator` can be created by using the functions available with `by`. So there are functions like `by.css`, `by.id`, `by.binding` that pretty much do what you'd expect. It is even possible to create your own Locators and attaching them to `by` during the start up of Protractor.
+A `Locator` can be created by using the functions available with `by`. So there are Locator methods like `by.css`, `by.id` or `by.binding` that pretty much do what you'd expect. It is even possible to create your own Locators and attaching them to `by` during the start up of Protractor.
 
-`element(by.css('input.username'));`
-`element.all(by.css('a.btn'));`
+```
+element(by.css('input.username'));
+element.all(by.css('a.btn'));
+```
 
-An `ElementFinder` exposes multiple actions, we've already seen `sendKeys` and `click` in the example above. We can use these actions to interact with the element, or to find out more about the element, for instance whether it is currently being displayed or not, or what its text value is.
+An `ElementFinder` exposes multiple actions, we've already seen `sendKeys` and `click` in the example above. We can use these actions to interact with the element, or to find out more about the element, for instance whether it is currently being displayed or not, or what its text value is. Additionally, 
 
-`element(by.css('a.home-page')).getAttribute('target');`
-Last but not least, it is also possible to chain `element` calls, it is somewhat similar to chained jQue
+```
+element(by.css('a.home-page')).getAttribute('target');
+```
 
+It is also possible to chain `element` calls, it is somewhat similar to chained jQuery in this regard. 
+
+```
+element(by.css('div.article')).element(by.tagName('h1'));
+element(by.css('ul#main-menu')).all(by.tagName('li'));
+```
+
+Last but not least, element.all exposes some additional functionality, as in getting the first child element, 
+or getting a child element by index, and these calls can also be chained.
+
+```
+element.all(by.css('p')).first().element(by.css('span'));
+element.all(by.css('div.article')).get(2).element(by.css('a'));
+```
 
  
 ##Organizing your code: Page objects
 If we only relied on `element` calls to structure our tests, our life would get progressively worse as the application grows. We'd have to duplicate a lot of code for components that are used across different pages. One change to an element's class name could force us to rewrite many of our tests.
 
-We use a design pattern called *page object* to overcome this problem. It is described in more detail by [Martin Fowler](http://martinfowler.com/bliki/PageObject.html). The gist of it is very simple.
+We use a design pattern called *page object* to overcome this problem. It is described in more detail by [Martin Fowler](http://martinfowler.com/bliki/PageObject.html). The gist of it is very simple:
 
 
 ```javascript
@@ -112,7 +129,7 @@ var LoginPage = function() {
 module.exports = LoginPage;
 
 ```
-We can now use the LoginPage page object in a test like this:
+We can now use the LoginPage page object in a test like. You'll proably notice that the test is now much more readable, which is a nice side effect of using page objects:
  
 ```javascript
 var LoginPage = require('login-page');
@@ -128,7 +145,7 @@ describe('login page', function() {
 });  
 ```
  
-We extend this principle to shared page components, such as headers, footers and AngularJS directives:
+We extend this principle to shared page components, such as headers, footers and AngularJS directives and can then re-use these components:
 
 ```javascript
 var HomePage = function() {
