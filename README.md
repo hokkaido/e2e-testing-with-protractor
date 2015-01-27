@@ -15,17 +15,17 @@ This is where end-to-end testing comes into play. We want to test our applicatio
 It's important to note that end-to-end testing is no panacea, we employ it alongside other testing methods, but the high level and broad scope of end-to-end testing can help tremendously when developing a complex web application.
 
 ##Enter Protractor
-Google has released an end-to-end testing framework for AngularJS applications called  [Protractor](http://angular.github.io/protractor/) that integrates existing technologies such as Selenium, Node.js and [Jasmine](http://jasmine.github.io/1.3/introduction.html) and makes writing tests a breeze.
+Google has released an end-to-end testing framework for AngularJS applications called  [Protractor](http://angular.github.io/protractor/) that integrates existing technologies such as Selenium, Node.js and [Jasmine](http://jasmine.github.io/1.3/introduction.html) and makes writing tests a breeze. 
 
-With Protractor we can write automated tests that run inside an actual browser, against an existing website. Thus, we can easily test whether a page works as expected.
+With Protractor we can write automated tests that run inside an actual browser, against an existing website. Thus, we can easily test whether a page works as expected. The added bonus of using Protractor is that it understands AngularJS and is optimized for it.
 
 If you already know Selenium and Jasmine, getting started with Protractor should be pretty straight forward.
 
 ##Installation
-Protractor requires Node.js, Selenium and a testing framework such as Jasmine to be installed on your computer. The official docs provide a good starting point. You can find more about the installation process [here](http://angular.github.io/protractor/#/).
+Protractor requires Node.js, Selenium and a testing framework such as Jasmine to be installed on your computer. You can find more about the installation process [here](http://angular.github.io/protractor/#/).
 
 ##Writing a simple test
-Protractor expects your tests to be written in so-called *spec files*. Spec is simply another word for test. These spec files are written using the syntax of your test framework, and the [Protractor API](http://angular.github.io/protractor/#/api). Out of the hood, Protractor uses [Jasmine](http://jasmine.github.io/1.3/introduction.html), but it also has tentative support for [Mocha](http://mochajs.org) and [Cucumber](http://cukes.info).
+Protractor expects your tests to be written in so-called *spec files*. Spec is simply another word for test. These spec files are written using the syntax of your test framework, and the [Protractor API](http://angular.github.io/protractor/#/api). Out of the box, Protractor uses [Jasmine](http://jasmine.github.io/1.3/introduction.html) as its default test framework, but it also has tentative support for [Mocha](http://mochajs.org) and [Cucumber](http://cukes.info).
 
 Let's assume we want to test whether a login page displays an error message if we do not fill in the password field.
 In protractor, we'd create a spec file (`login_spec.js`) for it that might look like this:
@@ -58,11 +58,19 @@ The `describe` call is from Jasmine, and we use it to describe the page we want 
 `element` and `by` are also globals created for us by Protractor. We can use them to find and interact with elements on the page.
 
 `expect` is again from Jasmine (and extended by Protractor), we test whether our expected error message is displayed.
- 
-##ElementFinders, Locators and ControlFlow
-As you can imagine, a large part of writing a test against a web site deals with finding and locating elements on a page and executing actions such as clicking on them. As seen above, Protractor offers two globally available constructs that help us here: `element` and `by`.
 
-A call to `element` requires a `Locator` and returns an `ElementFinder` or `ElementArrayFinder`
+It is important to note that Protractor is entirely asynchronous, so all API methods return promises. Under the hood, Protractor uses Selenium's control flow (a queue of pending promises) to allow us to write tests in a pseudo-synchronous way. Protractor is smart enough to make it all work.
+ 
+##Elements and Locators
+As you can imagine, a large part of writing a test against a web site deals with finding and locating DOM elements on a page and executing actions such as clicking on them. As explained above, Protractor offers multiple globally available constructs that help us here: `element`, and `by`.
+
+A call to `element` requires a `Locator` and returns an `ElementFinder` - it is used to find the first (or only) element that is matched by the Locator. Similarly, there is also `element.all` if you want to find more than one element.
+
+An `ElementFinder` exposes multiple actions, we've already seen `sendKeys` and `click` in the example above. We can use these actions to interact with the element, or to find out more about the element, for instance whether it is currently being displayed or not, or what its text value is.
+
+A `Locator` can be created by using the functions available with `by`. So there are functions like `by.css`, `by.id`, `by.binding` that pretty much do what you'd expect. It is even possible to create your own Locators and attaching them to `by` during the start up of Protractor.
+
+Last but not least, it is also possible to chain `element` calls, it is somewhat similar to chained jQue
 
 Some examples:
 
