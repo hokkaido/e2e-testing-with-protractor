@@ -1,4 +1,4 @@
-#AngularJS - End-to-end testing with protractor
+#AngularJS - End-to-end testing with Protractor
 
 
 As developers concerned with the quality of our work, we have a multitude of tools and patterns at our disposal to ensure
@@ -16,7 +16,7 @@ Luckily enough, there are existing solutions that help us deal with these proble
 
 Now, this is a blog post about AngularJS. We use AngularJS and we test our code. In the following paragraphs I'd like to describe one of the ways how we test AngularJS applications at Liip.
 
-##Enter protractor
+##Enter Protractor
 Google has released a testing framework for AngularJS applications called Protractor that integrates existing technologies such as Selenium, Node.js and Jasmine and makes writing tests a breeze.
 
 With protractor we can write tests that run inside an actual browser, against an existing website. We can test whether our website works as intended and we can catch and guard against unexpected errors.
@@ -50,12 +50,13 @@ describe('login page', function() {
 
 So, what have we done here?
 
-- We `describe` the page we want to test, in this case, our login page
-- We describe the behavior we want to test, in this case `it` should display an error message if the password field is empty
-- We visit (`get`) the page, in this case mysuperawesomepage.com/login
-- We instruct protractor to fill in a user name and press the submit button.
-- We test whether our expected error message is displayed and use Jasmine's expect syntax to achieve this.
+The `describe` call is from Jasmine, and we use it to describe the page we want to test, in this case, our login page. The `it` call is also from Jasmine, and we use it to describe the scope of our test. In this case the login page should display an error message if the password field is empty.
 
+`browser` is a global variable exposed by Protractor, and we use it to visit our (`get`) login page.
+
+`element` and `by` are also globals created for us by Protractor. We can use them to find and interact with elements on the page.
+
+`expect` is again from Jasmine, we test whether our expected error message is displayed.
  
 ##ElementFinder and Locators
 As you can imagine, a large part of writing a test against a web site deals with finding and locating elements on a page and executing
