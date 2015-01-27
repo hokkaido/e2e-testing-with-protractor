@@ -17,9 +17,9 @@ After all, we build software not for ourselves, but for our clients and their cu
 Luckily enough, there are existing solutions that help us deal with these problems in an automated and consistent way.
 
 ##Enter protractor
-Now, this is a blog post about AngularJS. We use AngularJS and we test our code. Google has released a testing framework
-for AngularJS applications that integrates existing technologies such as Selenium, Node.js and Jasmine and makes writing
-tests a breeze.
+Now, this is a blog post about AngularJS. We use AngularJS and we test our code. In the following paragraphs I'd like to describe how we test AngularJS applications at Liip.
+
+Google has released a testing framework for AngularJS applications called Protractor that integrates existing technologies such as Selenium, Node.js and Jasmine and makes writing tests a breeze.
 
 With protractor we can write tests that run inside an actual browser, against an existing website. We can test whether
 our website works as intended and we can catch and guard against unexpected errors.
@@ -33,9 +33,9 @@ In protractor, this might look like this:
 ```javascript
 describe('login page', function() {
   it('should display an error if the password field is empty', function() {
-    browser.get('http://mysuperawesomepage.com/login)
-    element(by.model('userName)).sendKeys('gandalf');
-    element(by.id('btn-submit').click();
+    browser.get('http://mysuperawesomepage.com/login');
+    element(by.model('userName')).sendKeys('gandalf');
+    element(by.id('btn-submit')).click();
     expect(element(by.css('.password-error')).isDisplayed()).toBe(true);
   });
 });
@@ -47,7 +47,7 @@ So, what have we done here?
 - We describe the behavior we want to test, in this case `it` should display an error message if the password field is empty
 - We visit (`get`) the page, in this case mysuperawesomepage.com/login
 - We instruct protractor to fill in a user name and press the submit button.
-- We test whether our expected error message is displayed
+- We test whether our expected error message is displayed and use Jasmine's expect syntax to achieve this.
 
  
 ##ElementFinder and Locators
@@ -105,7 +105,7 @@ var LoginPage = function() {
   this.username = element(by.model('username'));
   this.password = element(by.model('password'));
   this.loginButton = element(by.id('btn-login'));
-  this.passwordRequiredError = element(by.css('error-password'));
+  this.passwordRequiredError = element(by.css('error-password-required'));
     
   this.visit = function() {
     browser.get('http://mysuperawesomepage.com/login');
@@ -113,12 +113,12 @@ var LoginPage = function() {
     
   this.setUsername = function(username) {
     this.username.clear();
-    this.username.sendkeys(username);
+    this.username.sendKeys(username);
   }
     
   this.setPassword = function(password)
     this.password.clear();
-    this.password.sendkeys(password);
+    this.password.sendKeys(password);
   }
     
   this.login = function() {
@@ -153,6 +153,19 @@ var HomePage = function() {
   this.footer = new Footer();
   ...
 };
-module.exports = LoginPage;
+module.exports = HomePage;
 ```
 
+We often unify common methods in a base `Page`class that other page objects can inherit from:
+
+```javascript
+var Page = function() {
+  this.clearAndType = function(element, text) {
+    element.clear();
+    element.sendKeys(text);
+  };
+  
+  //...
+};  
+module.exports = Page;
+```
