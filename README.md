@@ -8,11 +8,9 @@ A typical web application has to integrate a variety of external services, datab
 during the development of most large web applications where you want to test the functionality of the system as a whole. 
 
 This is an area that is notoriously difficult to test with traditional methods such as unit tests and simple
-mocks. A database can fail, an external service can return an invalid result and a new browser version might have introduced
-a simple bug that we didn't know about when we initially wrote our code.
+mocks. A database can fail, an external service can return an invalid result and a new browser version might have introduced a simple bug that we didn't know about when we initially wrote our code.
 
-On top of that, one of the most important areas of software testing deals with the user-facing part of an application. 
-After all, we build software not for ourselves, but for our clients and their customers. 
+On top of that, one of the most important areas of software testing deals with the user-facing part of an application. After all, we build software not for ourselves, but for our clients and their customers. 
 
 Luckily enough, there are existing solutions that help us deal with these problems in an automated and consistent way.
 
@@ -26,15 +24,25 @@ With protractor we can write tests that run inside an actual browser, against an
 If you know Selenium and Jasmine, getting started with Protractor should be pretty straight forward.
 
 ##Writing a simple test
+Protractor expects your tests to be written in so-called spec files. These spec files are written using the syntax of your test framework, and the Protractor API.
+
 Let's assume we want to test whether a login page displays an error message if we do not fill in the password field.
-In protractor, this might look like this:
+In protractor, we'd create a spec file (`login_spec.js`) for it that might look like this:
 
 ```javascript
 describe('login page', function() {
   it('should display an error if the password field is empty', function() {
+  
+    // Visit the login page
     browser.get('http://mysuperawesomepage.com/login');
+    
+    // Find the element that matches ng-model="userName" and type 'gandalf' into it.
     element(by.model('userName')).sendKeys('gandalf');
+    
+    // Find the submit button and click it
     element(by.id('btn-submit')).click();
+    
+    // Check whether our error message is displayed
     expect(element(by.css('.password-error')).isDisplayed()).toBe(true);
   });
 });
