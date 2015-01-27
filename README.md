@@ -66,53 +66,17 @@ As you can imagine, a large part of writing a test against a web site deals with
 
 A call to `element` requires a `Locator` and returns an `ElementFinder` - it is used to find the first (or only) element that is matched by the Locator. Similarly, there is also `element.all` if you want to find more than one element.
 
-An `ElementFinder` exposes multiple actions, we've already seen `sendKeys` and `click` in the example above. We can use these actions to interact with the element, or to find out more about the element, for instance whether it is currently being displayed or not, or what its text value is.
-
 A `Locator` can be created by using the functions available with `by`. So there are functions like `by.css`, `by.id`, `by.binding` that pretty much do what you'd expect. It is even possible to create your own Locators and attaching them to `by` during the start up of Protractor.
 
-Last but not least, it is also possible to chain `element` calls, it is somewhat similar to chained jQue
-
-Some examples:
-
-If you want to find the first (or only) element by using a css selector, you use the `by.css` Locator:
-
 `element(by.css('input.username'));`
-
-If you want to find all elements on a by using a css selector
-
 `element.all(by.css('a.btn'));`
 
-If you want to find an element on the page by using its id
-
-`element(by.id('company-name'));`
-
-If you want to find all elements that have an ng-bind="currency" attribute
-
-`element.all(by.binding('currency'));`
-
-If you want to find an element that uses ng-model="selectedAlbum":
-
-`element(by.model('selectedAlbum'));`
-
-Once you have an ElementFinder, you can trigger actions:
-
-If you want to get an element's text value:
-
-`element.all(by.css('a.home-page')).getText();`
-
-If you want to get an element's attribute:
+An `ElementFinder` exposes multiple actions, we've already seen `sendKeys` and `click` in the example above. We can use these actions to interact with the element, or to find out more about the element, for instance whether it is currently being displayed or not, or what its text value is.
 
 `element(by.css('a.home-page')).getAttribute('target');`
+Last but not least, it is also possible to chain `element` calls, it is somewhat similar to chained jQue
 
-###Chaining Elements
 
-You can easily chain element calls.
-
-`element.all(by.css('li')).element(by.;`
-
-###ElementFinder = Promises
-
-##Element Finders are
  
 ##Organizing your code: Page objects
 If we only relied on `element` calls to structure our tests, our life would get progressively worse as the application grows. We'd have to duplicate a lot of code for components that are used across different pages. One change to an element's class name could force us to rewrite many of our tests.
@@ -164,7 +128,7 @@ describe('login page', function() {
 });  
 ```
  
-We extend this principle to shared page components, such as headers, footers and AngularJS directives. 
+We extend this principle to shared page components, such as headers, footers and AngularJS directives:
 
 ```javascript
 var HomePage = function() {
@@ -176,7 +140,7 @@ var HomePage = function() {
 module.exports = HomePage;
 ```
 
-We often unify common methods in a base `Page`class that other page objects can inherit from:
+We often unify common methods in a base `Page` class that other page objects can inherit from:
 
 ```javascript
 var Page = function() {
