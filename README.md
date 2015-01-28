@@ -96,7 +96,7 @@ element.all(by.css('div.article')).get(2).element(by.css('a'));
 
  
 ##Organizing your code: Page objects
-If we only relied on `element` calls to structure our tests, our life would get progressively worse as the application grows. We'd have to duplicate a lot of code for components that are used across different pages, or pages that are used across different tests. One change to an element's class name could force us to rewrite many of our tests.
+If we only rely on `element` calls to structure our tests, our life gets progressively worse as the application grows. We'd have to duplicate a lot of code for components that are used across different pages, or pages that are used across different tests. One change to an element's class name could force us to rewrite many of our tests.
 
 We use a design pattern called *page object* to overcome this problem. It is described in more detail by [Martin Fowler](http://martinfowler.com/bliki/PageObject.html). The gist of it is very simple, we try to encapsulate and wrap most of our Protractor calls in them:
 
@@ -132,7 +132,7 @@ module.exports = LoginPage;
 We can now use the LoginPage page object in our tests. You'll proably notice that the test is now much more readable, which is a nice side effect of using page objects:
  
 ```javascript
-var LoginPage = require('login-page');
+var LoginPage = require('./login-page');
 
 describe('login page', function() {
   it('should display an error message if the password field is empty', function() {
